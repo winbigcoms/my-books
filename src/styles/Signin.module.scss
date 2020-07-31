@@ -1,49 +1,70 @@
-input{
-  border:none;
-  border-bottom: 1px solid #ddd;
-}
-input:focus{
-  outline: none;
-}
-.signinForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 210px;
-  width: 100%;
-  height: 500px;
-  background-image: linear-gradient(#fcfcfc,#fafafa);
-  
-  .signinTitle{
-    font-size: 20px;
-    margin-bottom: 100px;
+.signinWrapper{
+  position: relative;
+  .shadow{
+    position: absolute;
+    top:0;
+    left:0;
+    opacity: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
   }
-  
-  .inputBox{
-    position: relative;
+  .signinImg {
+    height: 700px;
+    background-image: url("../images/signinImg.jpg");
+    background-size:cover;
+    background-repeat: no-repeat;
+  }
+  .signinForm {
+    position: absolute;
+    top:20px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 210px;
+    width: 100%;
+    height: 500px;
     
-    .checkEmail, .checkPassword{
-      color:rgb(2, 255, 99);
-      position: absolute;
-      right: -15px;
+    .signinTitle{
+      font-size: 30px;
+      margin-bottom: 40px;
+    }
+    .signinTitle>p{
+      font-size:20px;
+    }
+    .inputBox{
+      position: relative;
+      input{
+        border:none;
+        border-bottom: 1px solid #ccc;
+        background-color: rgba(255,255,255,0.5);
+        width: 200px;
+        height: 30px;
+      }
+      
+      input:focus{
+        outline: none;
+      }
+
+      .checkEmail, .checkPassword{
+        color:rgba(0,0,0,0.3);
+        position: absolute;
+        top:16%;
+        right: -15px;
+      }
+    }
+  
+    .signinBtn{
+      margin-top:20px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+    }
+    .signinBtn:hover {
+      // color: rgb(53, 231, 82);
+      background-color: #ddd;
     }
   }
-
-  .signinBtn{
-    margin-top:20px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s;
-  }
-  .signinBtn:hover {
-    // color: rgb(53, 231, 82);
-    background-color: #ddd;
-  }
-}
-.signinImg {
-  height: 500px;
-  background-image: url("../images/signinImg.jpg");
-  background-size:cover;
-  background-repeat: no-repeat;
 }
