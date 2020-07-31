@@ -6,16 +6,22 @@ import Signin from './pages/Signin';
 import Home from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { ErrorBoundary } from 'react-error-boundary';
+import PersonContext from './Context/PersonContext';
+
+const person = {id:0,name:"백승일"}
+
 function App() {
   return (
     <ErrorBoundary FallbackComponent={FatalPage}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/signin" component={Signin}/>
-          <Route exact path="/" component={Home}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </BrowserRouter>      
+      <PersonContext.Provider value={person}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/signin" component={Signin}/>
+            <Route exact path="/" component={Home}/>
+            <Route component={NotFound}/>
+          </Switch>
+        </BrowserRouter>      
+      </PersonContext.Provider>
     </ErrorBoundary>
   );
 }
