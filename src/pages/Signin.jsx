@@ -45,6 +45,7 @@ class Signin extends React.Component {
       emailRegExp.test(target.value.trim()) ? this.checkEmail.current.innerText = "O": this.checkEmail.current.innerText = "X";
       console.log(this.checkEmail.current.innerText);
     }
+    console.log("1")
     if(target.name ==="password") {
       console.log(target.value.trim());
       target.value.trim() ==="" ? this.checkPassword.current.innerText = `X`: this.checkPassword.current.innerText = "O";
