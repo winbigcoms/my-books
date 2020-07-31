@@ -1,0 +1,49 @@
+input{
+  border:none;
+  border-bottom: 1px solid #ddd;
+}
+input:focus{
+  outline: none;
+}
+.signinForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 210px;
+  width: 100%;
+  height: 500px;
+  background-image: linear-gradient(#fcfcfc,#fafafa);
+  
+  .signinTitle{
+    font-size: 20px;
+    margin-bottom: 100px;
+  }
+  
+  .inputBox{
+    position: relative;
+    
+    .checkEmail, .checkPassword{
+      color:rgb(2, 255, 99);
+      position: absolute;
+      right: -15px;
+    }
+  }
+
+  .signinBtn{
+    margin-top:20px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s;
+  }
+  .signinBtn:hover {
+    // color: rgb(53, 231, 82);
+    background-color: #ddd;
+  }
+}
+.signinImg {
+  height: 500px;
+  background-image: url("../images/signinImg.jpg");
+  background-size:cover;
+  background-repeat: no-repeat;
+}
