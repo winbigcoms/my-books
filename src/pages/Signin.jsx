@@ -15,6 +15,8 @@ class Signin extends React.Component {
   checkPassword = React.createRef(null);
   passwordRef = React.createRef(null);
   signinBtn = React.createRef(null);
+  emailRef = React.createRef(null);
+
   click =  async() => {
     const email = this.state.email;
     const password = this.passwordRef.current.value;
@@ -44,11 +46,9 @@ class Signin extends React.Component {
   change = ({target}) =>{
     const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if(target.name === "email") {
-      // this.setState((state) => ({...state, email:target.value}));
       this.setState((state) => {
         return {email:target.value}
       });
-
       if(emailRegExp.test(target.value)){
         this.checkEmail.current.innerText = "O";
       }else if(target.value.trim()===""){
@@ -61,7 +61,7 @@ class Signin extends React.Component {
     if(target.name ==="password") {
       target.value.trim() ==="" ? this.checkPassword.current.innerText = ``: this.checkPassword.current.innerText = "O";
     }
-    if(this.passwordRef.current.value.length && emailRegExp.test(this.state.email) ){
+    if(this.passwordRef.current.value.length && emailRegExp.test(this.emailRef.current.value) ){
       this.setState(state =>({btnOn:false}));
     }else{
       this.setState(state =>({btnOn:true}));
@@ -85,7 +85,7 @@ class Signin extends React.Component {
               나의 작은 도서관
             </h1>
             <p className={styles.inputBox}>
-              <input type="text" placeholder="이메일"name="email" value={this.state.email} onChange={this.change} />
+              <input type="text" placeholder="이메일"name="email" value={this.state.email} ref={this.emailRef} onChange={this.change} />
               <span className={styles.checkEmail} ref={this.checkEmail}></span>
             </p>
             <p className={styles.inputBox}>
