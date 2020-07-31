@@ -26,7 +26,6 @@ class Signin extends React.Component {
       this.props.history.push("/");
 
     }catch(e){
-      console.log(e)
       const errorCode = e.response.data.error;
       if(errorCode === 'PASSWORD_NOT_MATCH'){
         message.error('몬가..몬가 잘못입력했어')
@@ -42,12 +41,10 @@ class Signin extends React.Component {
     if(target.name === "email") {
       this.setState({email:target.value});
       const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-      emailRegExp.test(target.value.trim()) ? this.checkEmail.current.innerText = "O": this.checkEmail.current.innerText = "X";
-      console.log(this.checkEmail.current.innerText);
+      emailRegExp.test(target.value) ? this.checkEmail.current.innerText = "O": target.value.trim()==="" ? this.checkEmail.current.innerText = "" : this.checkEmail.current.innerText = "X"
     }
     if(target.name ==="password") {
-      console.log(target.value.trim());
-      target.value.trim() ==="" ? this.checkPassword.current.innerText = `X`: this.checkPassword.current.innerText = "O";
+      target.value.trim() ==="" ? this.checkPassword.current.innerText = ``: this.checkPassword.current.innerText = "O";
     }
   }
   
@@ -58,13 +55,11 @@ class Signin extends React.Component {
         style={{height:"100vh"}}
         justify="center"
         align="middle"
-        className="signinWrapper"
       >
-        <Col span={4}></Col>
-        <Col span={8}>
+        <Col span={6}></Col>
+        <Col span={12} className={styles.signinWrapper}>
           <div className={styles.signinImg}></div>
-        </Col>
-        <Col span={8}>
+          <div className={styles.shadow}></div>
           <div className={styles.signinForm}>
             <h1 className={styles.signinTitle}>
               <p>쉬다가요</p>
@@ -78,10 +73,10 @@ class Signin extends React.Component {
               <input type="password" placeholder="비밀번호" name="password" ref={this.passwordRef} onChange={this.change} />
               <span className={styles.checkPassword} ref={this.checkPassword}></span>
             </p>
-            <button onClick={this.click} className={styles.signinBtn}>쉬러가기</button>
+            <button onClick={this.click} className={styles.signinBtn}>입장하기</button>
           </div>
         </Col>
-        <Col span={4}></Col>
+        <Col span={6}></Col>
       </Row>
     );
   }
