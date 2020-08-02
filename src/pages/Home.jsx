@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { withAuth } from '../HOCs/withAuth';
 import axios from 'axios';
+import styles from "../styles/Home.module.scss";
 function Home (props) {
   
   const [states,setState] = useState({
@@ -41,17 +42,7 @@ function Home (props) {
     setState({...states,books:copyBooks,sort:e.target.value});
   }
   return (
-    <div>
-      <ul>
-        {states.books.map(book =>(<li key={book.bookId}>
-          <h3>제목: {book.title}</h3>
-          <p>요약: {book.message}</p>
-          <p>저자: {book.author}</p>
-          <p>링크: {book.url}</p>
-          <p>책장에 추가한 날짜: {book.createdAt.slice(0,19)}</p>
-          <p>마지막 업데이트: {book.updatedAt.slice(0,10)}</p>
-        </li>))}
-      </ul>
+    <div className={styles.wrapper}>
       <label>정렬
         <select name="정렬" value={states.sort} ref={sortWhat} onChange={catchSortWhat}>
           <option value="title">제목</option>
@@ -59,6 +50,39 @@ function Home (props) {
           <option value="createdAt">추가날짜</option>
         </select>
       </label>
+      <ul className={styles.books}>
+        {states.books.map(book =>(<li key={book.bookId} className={styles.bookBox}>
+          <div className={styles.bookAni}>
+					  <div className={styles.book}>
+							<ul className={styles.hardcover_front}>
+								<li>
+									<div>
+										<h3 className={styles.bookTitle}>{book.title}</h3>
+									</div>
+								</li>
+								<li></li>
+							</ul>
+							<ul className={styles.page}>
+								<li>
+									{/* <a className={styles.btn} href={book.url}>책보러가기</a> */}
+                  <span className={styles.bookMessage}>{book.message}</span>
+								</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+          </div>
+          <div className={styles.divider}></div>
+          <div className={styles.bookInfo}>
+            <h3>제목: {book.title}</h3>
+            <p>저자: {book.author}</p>
+            {/* <p>링크: {book.url}</p> */}
+            <p>책장에 추가한 날짜: {book.createdAt.slice(0,16).split("T").join("/")}</p>
+            <p>마지막 업데이트: {book.updatedAt.slice(0,16).split("T").join("/")}</p>
+          </div>
+        </li>))}
+      </ul>
     </div>
   );
 };
