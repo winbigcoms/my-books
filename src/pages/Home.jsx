@@ -17,22 +17,23 @@ function Home (props) {
   function titleSort(key){
     return (a,b)=> (a[key] > b[key] ? 1 : (a[key] < b[key] ? -1 : 0))
   }
+  
+  async function initialize(){
+    try{
+      const res = await axios.get("https://api.marktube.tv/v1/book",{
+        headers:{Authorization:`Bearer ${props.token}`}
+      });
+      const books = res.data;
+      books.sort(titleSort(states.sort));
+      console.log(books)
+      setState({states,books});
+    }catch(e){
+      console.log(e);
+      setState({...states,error:e})
+    }
+  }
 
   useEffect( ()=>{
-    async function initialize(){
-      try{
-        const res = await axios.get("https://api.marktube.tv/v1/book",{
-          headers:{Authorization:`Bearer ${props.token}`}
-        });
-        const books = res.data;
-        books.sort(titleSort(states.sort));
-        console.log(books)
-        setState({states,books});
-      }catch(e){
-        console.log(e);
-        setState({...states,error:e})
-      }
-    }
     initialize()
   },[])
 
@@ -58,7 +59,6 @@ function Home (props) {
       <ul className={styles.books}>
         <h2 className={styles.a11yHidden}>도서</h2>
         {states.books.map(book =>(<li key={book.bookId} className={styles.bookBox}>
-          <div className={styles.bookAni}>
 					  <div className={styles.book}>
 							<ul className={styles.hardcover_front}>
 								<li>
@@ -77,7 +77,7 @@ function Home (props) {
 								<li></li>
 							</ul>
 						</div>
-          </div>
+          {/* </div> */}
           <div className={styles.divider}></div>
           <div className={styles.bookInfo}>
             <h3>제목: {book.title}</h3>
