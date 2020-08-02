@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { withAuth } from '../HOCs/withAuth';
 import axios from 'axios';
 import styles from "../styles/Home.module.scss";
+import {LinkOutlined} from "@ant-design/icons"
 function Home (props) {
   
   const [states,setState] = useState({
@@ -43,14 +44,19 @@ function Home (props) {
   }
   return (
     <div className={styles.wrapper}>
-      <label>정렬
-        <select name="정렬" value={states.sort} ref={sortWhat} onChange={catchSortWhat}>
-          <option value="title">제목</option>
-          <option value="author">저자</option>
-          <option value="createdAt">추가날짜</option>
-        </select>
-      </label>
+      <header className={styles.header}>
+        <h1><p>어서와요</p>나의 작은 도서관</h1>
+        <label>
+          <span>정렬</span>
+          <select name="정렬" value={states.sort} ref={sortWhat} onChange={catchSortWhat}>
+            <option value="title">제목</option>
+            <option value="author">저자</option>
+            <option value="createdAt">추가날짜</option>
+          </select>
+        </label>
+      </header>
       <ul className={styles.books}>
+        <h2 className={styles.a11yHidden}>도서</h2>
         {states.books.map(book =>(<li key={book.bookId} className={styles.bookBox}>
           <div className={styles.bookAni}>
 					  <div className={styles.book}>
@@ -64,7 +70,6 @@ function Home (props) {
 							</ul>
 							<ul className={styles.page}>
 								<li>
-									{/* <a className={styles.btn} href={book.url}>책보러가기</a> */}
                   <span className={styles.bookMessage}>{book.message}</span>
 								</li>
 								<li></li>
@@ -77,9 +82,9 @@ function Home (props) {
           <div className={styles.bookInfo}>
             <h3>제목: {book.title}</h3>
             <p>저자: {book.author}</p>
-            {/* <p>링크: {book.url}</p> */}
             <p>책장에 추가한 날짜: {book.createdAt.slice(0,16).split("T").join("/")}</p>
             <p>마지막 업데이트: {book.updatedAt.slice(0,16).split("T").join("/")}</p>
+            <a className={styles.btn} href={book.url} aria-label="yes24로 이동">책보러가기<LinkOutlined /></a>
           </div>
         </li>))}
       </ul>
