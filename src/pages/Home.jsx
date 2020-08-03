@@ -90,6 +90,7 @@ function Home (props) {
     </div>
   );
 };
+
 export default withAuth(Home, true);
 
 function titleSort(key){
