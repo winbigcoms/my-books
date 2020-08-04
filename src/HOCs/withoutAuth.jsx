@@ -12,7 +12,7 @@ export function withAuth(Component, hasToken) {
     if(token === null && hasToken) {
       return <Redirect to="/signin"/>
     }
-    return (<Component {...props} token={token}/>)
+    return (<Component {...props}/>)
   }
 
   C.displayName = displayName;

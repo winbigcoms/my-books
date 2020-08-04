@@ -1,19 +1,24 @@
+$media : 550px;
 .signinWrapper{
   position: relative;
   .shadow{
     position: absolute;
     top:0;
     left:0;
-    opacity: 50%;
+    opacity: 20%;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: skyblue;
+    border-radius: 50px;
+
   }
   .signinImg {
     height: 700px;
     background-image: url("../images/signinImg.jpg");
     background-size:cover;
+    background-position: center center;
     background-repeat: no-repeat;
+    border-radius: 50px;
   }
   .signinForm {
     position: absolute;
@@ -25,7 +30,7 @@
     align-items: center;
     min-width: 210px;
     width: 100%;
-    height: 500px;
+    height: 70%;
     
     .signinTitle{
       font-size: 30px;
@@ -40,12 +45,14 @@
         border:none;
         border-bottom: 1px solid #ccc;
         background-color: rgba(255,255,255,0.5);
-        width: 200px;
+        width: 250px;
         height: 30px;
+        transition: all 0.5s;
       }
       
       input:focus{
         outline: none;
+        border-bottom: 1px solid green;
       }
 
       .checkEmail, .checkPassword{
@@ -68,3 +75,12 @@
     }
   }
 }
+// @media (max-width: 500px) {
+//   .signinTitle{
+//     font-size: 15px;
+//     margin-bottom: 20px;
+//   }
+//   .signinTitle>p{
+//     font-size:10px;
+//   }
+// }
