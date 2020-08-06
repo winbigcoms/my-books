@@ -31,9 +31,11 @@ export function HomeComponent({loading,error,books,getBooks}) {
     };
     
     let copyBook = books;
+
     const searchBook = copyBook.filter(
       book => book.title.match(new RegExp(e.target.value),"ig")
     );
+    
     setState(states => ({...states,viewBooks:searchBook.length===0?state.viewBooks:searchBook}));
   }
 

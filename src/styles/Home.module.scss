@@ -68,11 +68,13 @@ a:hover, a:active {
         display: flex;
         justify-content: center;
         margin-top: 30px;
+
         .bookContainer{
             position: relative;
             width: 50%;
             overflow: hidden;
             right: 30px;
+
             .books{
                 position: relative;
                 display: flex;
@@ -83,9 +85,11 @@ a:hover, a:active {
                 right: -30px;
                 overflow-y: scroll;
                 background-color: rgba(255,255,255,0.5);
+
                 >li{
                     margin: 20px 0
                 }
+
                 .bookBox{
                     width: 100%;
                     padding: 5px 15px;
@@ -98,17 +102,21 @@ a:hover, a:active {
                     .bookAni{
                         width: 45%;
                     }
+
                     .divider{
                         border: 1px solid rgba(0,0,0,0.3);
                         height: 80%;
                         width: 1px;
                         margin: 0px 15px;
                     }
+
                     .bookInfo{
                         width: 45%;
+                        
                         >h3,>p{
                             font-weight: bold;
                         }
+
                         >p{
                             margin: 4px 0;
                             overflow:hidden;
