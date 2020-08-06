@@ -23,18 +23,22 @@ export function HomeComponent({loading,error,books,getBooks}) {
   }
 
   function search(e){
+    if(e.target.value ==="") {
+      setState(states => ({...states,viewBooks:books}))
+      return
+    };
+    
     let copyBook = books;
     const searchBook = copyBook.filter(
       book => book.title.match(new RegExp(e.target.value),"ig")
     );
-    console.log(e.target.value,searchBook)
-    setState(states => ({...states,viewBooks:searchBook}));
+    setState(states => ({...states,viewBooks:searchBook.length===0?state.viewBooks:searchBook}));
   }
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <h1><p>어서와요</p>나의 작은 도서관</h1>
-        <input type="text"onChange={search} ref={searchInput}/>
         <label>
           <select name="정렬" ref={sortWhat} onChange={catchSortWhat}>
             <option value="title">제목으로 정렬</option>
@@ -81,7 +85,7 @@ export function HomeComponent({loading,error,books,getBooks}) {
           </li>))}
         </ul>
         <div className={styles.functionUI}>
-
+          <input type="text"onChange={search} ref={searchInput} className={styles.search}/>
         </div>
       </div>
     </div>

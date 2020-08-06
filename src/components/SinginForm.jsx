@@ -22,9 +22,7 @@ export default function SinginForm(props) {
   function change ({target}) {
     const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if(target.name === "email") {
-      this.setState((state) => {
-        return {email:target.value}
-      });
+      
       if(emailRegExp.test(target.value)){
         checkEmail.current.innerText = "O";
       }else if(target.value.trim()===""){
