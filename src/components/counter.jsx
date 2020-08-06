@@ -7,14 +7,6 @@ export default function Counter(props) {
   
   const [state,setState] = useState({count:0});
   const width = useWindowWidth();
-  //componentDidMount
-  // useEffect(()=>{console.log(`componentDidMount`)},[]);
-  // useEffect(()=>{console.log(`componentDidUpdate`)},[state]);
-  // useEffect(()=>{
-  //   console.log(`componentDidMount`) 
-  //   return ()=>{
-  //   console.log("component will")
-  // }},[]);
   function click(){
     setState({count:state.count+1});
   }
