@@ -8,7 +8,8 @@ import App from './App';
 
 
 import {Provider}from "react-redux"
-import Store from './store';
+import Store from './redux/create';
+
 const store = Store()
 
 ReactDOM.render(

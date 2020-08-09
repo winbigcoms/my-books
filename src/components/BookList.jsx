@@ -9,9 +9,9 @@ export function BookList({loading,error,books,getBooks}) {
   const searchInput = useRef("");
 
   useEffect(()=>{
-    getBooks();
+     getBooks();
   },[getBooks])
-
+  
   useEffect(()=>{
     setState((states)=>({...states,viewBooks:books}));
   },[books, setState])

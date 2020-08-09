@@ -5,6 +5,9 @@ class TokenService{
   static getItem(){
     return localStorage.getItem("token");
   }
+  static clear(){
+    return localStorage.removeItem("token");
+  }
 }
 
 export default TokenService;
