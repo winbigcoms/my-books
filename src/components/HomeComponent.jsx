@@ -2,15 +2,16 @@
 import  React, { useState, useRef, useEffect } from 'react';
 import styles from "../styles/Home.module.scss";
 import {LinkOutlined} from "@ant-design/icons";
+import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 
-export function HomeComponent({loading,error,books,getBooks}) {
+export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) {
   const [state,setState] = useState({viewBooks:[],sort:"",selectedBook:[{title:"",message:"",author:"",createdAt:""}]});
   const sortWhat = useRef(null);
   const detailTitle = useRef(null);
   const searchInput = useRef("");
 
   useEffect(()=>{
-    console.log("1")
     getBooks();
   },[getBooks])
 
@@ -29,19 +30,31 @@ export function HomeComponent({loading,error,books,getBooks}) {
       setState(states => ({...states,viewBooks:books}))
       return
     };
-    
     let copyBook = books;
     const searchBook = copyBook.filter(
       book => book.title.match(new RegExp(e.target.value),"ig")
     );
+    
     setState(states => ({...states,viewBooks:searchBook.length===0?state.viewBooks:searchBook}));
   }
 
   function showBookDetail(e){
+    if(e.target.matches(".delBtn")||e.target.matches(".delBtn span")){
+      console.log(e.target.matches(".delBtn"));
+      return;
+    }
     let copyBook = books.filter(book => book.bookId === +e.currentTarget.id);
     setState(states => ({...states,selectedBook:copyBook}));
   }
+  function logoutClick(){
+    logout();
+  }
 
+  function deleteThisBook(e){
+    e.preventDefault();
+    const bookId = +e.currentTarget.parentNode.parentNode.id;
+    deleteBook(bookId)
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -55,6 +68,8 @@ export function HomeComponent({loading,error,books,getBooks}) {
           </select>
         </label>
         <input type="text"onChange={search} ref={searchInput} className={styles.search} placeholder="검색 할 책을 입력하세요"/>
+        <button onClick={logoutClick}>로그아웃</button>
+        <Link to="/addPage">책 추가하기</Link>
       </header>
       <div className={styles.main}>
         <div className={styles.bookContainer}>
@@ -90,7 +105,13 @@ export function HomeComponent({loading,error,books,getBooks}) {
                 <p>저자: {book.author}</p>
                 <p>책장에 추가한 날짜: {book.createdAt.slice(0,16).split("T").join("/")}</p>
                 <p>마지막 업데이트: {book.updatedAt.slice(0,16).split("T").join("/")}</p>
-                <a className={styles.btn} target="_blank" rel="noopener noreferrer" href={book.url} aria-label="yes24로 이동">책보러가기<LinkOutlined /></a>
+                <a className={styles.btn} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  href={book.url} 
+                  aria-label="yes24로 이동"
+                >책보러가기<LinkOutlined /></a>
+                <Button className="delBtn" onClick={deleteThisBook}>책 삭제하기</Button>
               </div>
             </li>))}
           </ul>
