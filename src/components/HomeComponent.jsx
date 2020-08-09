@@ -40,7 +40,6 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
 
   function showBookDetail(e){
     if(e.target.matches(".delBtn")||e.target.matches(".delBtn span")){
-      console.log(e.target.matches(".delBtn"));
       return;
     }
     let copyBook = books.filter(book => book.bookId === +e.currentTarget.id);
@@ -51,7 +50,6 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
   }
 
   function deleteThisBook(e){
-    e.preventDefault();
     const bookId = +e.currentTarget.parentNode.parentNode.id;
     deleteBook(bookId)
   }
