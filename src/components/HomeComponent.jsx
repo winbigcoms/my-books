@@ -1,9 +1,8 @@
 // @flow
 import  React, { useState, useRef, useEffect } from 'react';
 import styles from "../styles/Home.module.scss";
-import {LinkOutlined} from "@ant-design/icons";
+import {LinkOutlined, DeleteOutlined} from "@ant-design/icons";
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
 
 export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) {
   const [state,setState] = useState({viewBooks:[],sort:"",selectedBook:[{title:"",message:"",author:"",createdAt:""}]});
@@ -17,7 +16,7 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
 
   useEffect(()=>{
     setState((states)=>({...states,viewBooks:books}));
-  },[books, setState])
+  },[books, setState]);
 
   function catchSortWhat(e){
     let copyBook = books;
@@ -51,23 +50,31 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
 
   function deleteThisBook(e){
     const bookId = +e.currentTarget.parentNode.parentNode.id;
-    deleteBook(bookId)
+    setState(states => ({...states,selectedBook:[{title:"",message:"",author:"",createdAt:""}]}));
+    deleteBook(bookId);
+    console.log(state);
   }
 
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
         <h1><p>어서와요</p>나의 작은 도서관</h1>
-        <label>
-          <select name="정렬" ref={sortWhat} onChange={catchSortWhat}>
-            <option value="title">제목으로 정렬</option>
-            <option value="author">저자로 정렬</option>
-            <option value="createdAt">추가날짜로 정렬</option>
-          </select>
-        </label>
         <input type="text"onChange={search} ref={searchInput} className={styles.search} placeholder="검색 할 책을 입력하세요"/>
-        <button onClick={logoutClick}>로그아웃</button>
-        <Link to="/addPage">책 추가하기</Link>
+        <div className={styles.headerDivider}>
+          <label>
+            <select name="정렬" ref={sortWhat} onChange={catchSortWhat}>
+              <option value="title">제목으로 정렬</option>
+              <option value="author">저자로 정렬</option>
+              <option value="createdAt">추가날짜로 정렬</option>
+            </select>
+          </label>
+          <div className={styles.headerFunctionWrapper}>
+              <button onClick={logoutClick}>로그아웃</button>
+              <button className={styles.addPage}>
+                <Link to="/addPage">책 추가하기</Link>
+              </button>
+          </div>
+        </div>
       </header>
       <div className={styles.main}>
         <div className={styles.bookContainer}>
@@ -101,15 +108,15 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
               <div className={styles.bookInfo}>
                 <h3>제목: {book.title}</h3>
                 <p>저자: {book.author}</p>
-                <p>책장에 추가한 날짜: {book.createdAt.slice(0,16).split("T").join("/")}</p>
-                <p>마지막 업데이트: {book.updatedAt.slice(0,16).split("T").join("/")}</p>
+                <p>추가한 날짜: {book.createdAt.slice(0,16).split("T").join("/")}</p>
+                <p>업데이트: {book.updatedAt.slice(0,16).split("T").join("/")}</p>
                 <a className={styles.btn} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   href={book.url} 
                   aria-label="yes24로 이동"
                 >책보러가기<LinkOutlined /></a>
-                <Button className="delBtn" onClick={deleteThisBook}>책 삭제하기</Button>
+                <button className={styles.delBtn} onClick={deleteThisBook}>책 삭제하기<DeleteOutlined /></button>
               </div>
             </li>))}
           </ul>
@@ -117,9 +124,14 @@ export function HomeComponent({loading,error,books,getBooks,logout,deleteBook}) 
         <div className={styles.functionUI} ref={detailTitle}>
           {state.selectedBook[0].title !=="" && state.selectedBook.map(book => (<>
             <h3>제목 : {book.title}</h3>
-            <p>저자 : {book.author}</p>
-            <p>코멘트 : {book.message}</p>
-            <p>추가 날짜 : {book.createdAt}</p>
+            <div className={styles.detailImg} style={{
+                      backgroundImage:`url(./images/${book.bookId}.jpg)`,
+                      backgroundRepeat:"no-repeat"
+                    }}>
+            </div>
+            <p><span className={styles.detailInfo}>저자 :</span> <span className={styles.bookDetailInfo}>{book.author}</span></p>
+            <p className={styles.detailMessage}><span className={styles.detailInfo}>코멘트 :</span><span className={styles.bookDetailInfo}>{book.message}</span></p>
+            <p><span className={styles.detailInfo}>추가 날짜 :</span><span className={styles.bookDetailInfo}>{book.createdAt.slice(0,16).split("T").join("/")}</span></p>
           </>
           ))}
         </div>
